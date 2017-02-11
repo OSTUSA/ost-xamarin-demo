@@ -1,0 +1,11 @@
+{
+  "name": "ost-iot-demo-raspberrypi",
+  "version": "1.0.0",
+  "description": "nodejs code for a demo of IoT",
+  "main": "app.js",
+  "license": "MIT",
+  "dependencies": {
+    "bme280-sensor": "^0.1.6",
+    "sleep": "5.1.0"
+  }
+}
