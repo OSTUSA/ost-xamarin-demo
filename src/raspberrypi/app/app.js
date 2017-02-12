@@ -3,6 +3,8 @@
 */
 'use strict';
 
+const DEFAULT_INTERVAL = 30000;
+
 var BME280 = require('bme280-sensor');
 
 // read the sensor data every 10 seconds
@@ -22,31 +24,17 @@ var twin = {
 };
 
 const onRefresh = function (request, response) {
-  readSensorData()
+  sendTelemetryData()
     .then((data) => {
-      twin.update(data)
-        .then(() => {
-          response.send(200, data, (err) => {
-            if (err) {
-              console.log(`error sending response: ${err}`);
-            } else {
-              console.log(`Successfully responded to method ${request.methodName}`);
-            }
-          });
-        })
-        .catch((err) => {
-          console.log(`error updating twin: ${err}`);
-          response.send(500, `error updating twin: ${err}`, (err) => {
-            if (err) {
-              console.log(`error sending response: ${err}`);
-            } else {
-              console.log(`Successfully responded to method ${request.methodName}`);
-            }
-          });
-        });
+      response.send(200, data, (err) => {
+        if (err) {
+          console.log(`error sending response: ${err}`);
+        } else {
+          console.log(`Successfully responded to method ${request.methodName}`);
+        }
+      });
     })
     .catch((err) => {
-      console.log(`error reading sensor data: ${err}`);
       response.send(500, `error reading sensor data: ${err}`, (err) => {
         if (err) {
           console.log(`error sending response: ${err}`);
@@ -69,14 +57,11 @@ const readSensorData = function () {
         };
         resolve(payload);
       })
-      .catch((err) => {
-        console.log(`BME280 read error: ${err}`);
-        reject(`BME280 read error: ${err}`);
-      });
+      .catch((err) => reject(`BME280 read error: ${err}`));
   });
 };
 
-var init = function () {
+const init = function () {
   return new Promise((resolve, reject) => {
     var fs = require('fs');
     var path = require('path');
@@ -124,22 +109,89 @@ var init = function () {
   });
 }
 
-init()
-  .then((client) => {
+const createReceiver = function (client) {
+  return new Promise((resolve, reject) => {
     receiver = Receiver.create(client);
     receiver.subscribe('refresh', onRefresh);
-    console.log('initialized message receiver');
-
-    var tempTwin = Twin.create(client);
-    tempTwin.init()
-      .then(() => {
-        console.log('initialized twin');
-        twin = tempTwin;
-      })
-      .catch((err) => {
-        console.log(`unable to initialize twin: ${err}`);
-      });
-  })
-  .catch((err) => {
-    console.log(`unable to initialize client: ${err}`);
+    resolve();
   });
+};
+
+const createTwin = function (client) {
+  return new Promise((resolve, reject) => {
+    twin = Twin.create(client);
+    twin.init()
+      .then(() => {
+        twin.onDesiredChanged(updateTwinConfigInterval);
+        updateTwinConfigInterval()
+          .then(() => {
+            resolve();
+          })
+          .catch((err) => reject(`unable to update twin config interval: ${err}`));
+      })
+      .catch((err) => console.log(`unable to initialize twin: ${err}`));
+  });
+};
+
+const updateTwinConfigInterval = function (desired) {
+  return new Promise((resolve, reject) => {
+    var properties = twin.getProperties();
+    var desired = desired || properties.desired;
+    var reported = properties.reported;
+
+    if (!reported.config || (desired.config && reported.config.interval != desired.config.interval)) {
+      var interval = ((desired || {}).config || {}).interval || DEFAULT_INTERVAL;
+      console.log(`setting interval: ${interval}`);
+      var patch = {
+        config: {
+          interval: interval
+        }
+      };
+
+      twin.update(patch)
+        .then(() => resolve())
+        .catch((err) => reject(err));
+    }
+    resolve();
+  });
+};
+
+const sendTelemetryData = function () {
+  return new Promise((resolve, reject) => {
+    readSensorData()
+      .then((data) => {
+        twin.update(data)
+          .then(() => {
+            resolve(data);
+          })
+          .catch((err) => console.log(`error updating twin: ${err}`));
+      })
+      .catch((err) => console.log(`error reading sensor data: ${err}`));
+  });
+};
+
+const sendAndScheduleTelemetry = function () {
+  Promise.all([sendTelemetryData(), scheduleTelemetry()])
+    .catch((err) => console.log(`error sending telemetry data: ${err}`));
+};
+
+const scheduleTelemetry = function () {
+  return new Promise((resolve, reject) => {
+    var properties = twin.getProperties();
+
+    var interval = twin.getProperties().reported.config.interval;
+    console.log(`sending next telemetry packet in ${interval}ms`);
+    setTimeout(sendAndScheduleTelemetry, interval);
+    resolve();
+  });
+}
+
+init()
+  .then((client) => {
+    Promise.all([createReceiver(client), createTwin(client)])
+      .then(() => {
+        sendAndScheduleTelemetry();
+      })
+      .catch((err) => console.log(`unable to initialize IoT services: ${err}`));
+  })
+  .catch((err) => console.log(`unable to initialize client: ${err}`));

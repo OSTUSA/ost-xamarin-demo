@@ -29,8 +29,16 @@ class Twin {
     });
   }
 
+  onDesiredChanged(method) {
+    this._twin.on('properties.desired', method);
+  }
+  
   static create(client) {
     return new Twin(client);
+  }
+
+  getProperties() {
+    return this._twin.properties;
   }
 }
 
