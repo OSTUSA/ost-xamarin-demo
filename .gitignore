@@ -44,3 +44,4 @@ Thumbs.db
 ## node.js files
 **/node_modules/
 */.vscode/
+**/npm-debug.log

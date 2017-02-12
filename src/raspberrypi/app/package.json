@@ -5,7 +5,9 @@
   "main": "app.js",
   "license": "MIT",
   "dependencies": {
-    "bme280-sensor": "^0.1.6",
-    "sleep": "5.1.0"
+    "azure-iot-common": "^1.1.4",
+    "azure-iot-device": "^1.0.17",
+    "azure-iot-device-mqtt": "^1.0.17",
+    "bme280-sensor": "^0.1.6"
   }
 }
