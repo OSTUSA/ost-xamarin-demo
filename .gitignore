@@ -4,10 +4,10 @@
 *~
 
 # build
-src/OSTUSA.IoT.DemoApp/**/[Oo]bj/
-src/OSTUSA.IoT.DemoApp/**/[Bb]in/
-src/OSTUSA.IoT.DemoApp/packages/
-src/OSTUSA.IoT.DemoApp/TestResults/
+src/OSTUSA.Xamarin.DemoApp/**/[Oo]bj/
+src/OSTUSA.Xamarin.DemoApp/**/[Bb]in/
+src/OSTUSA.Xamarin.DemoApp/packages/
+src/OSTUSA.Xamarin.DemoApp/TestResults/
 
 # globs
 Makefile.in

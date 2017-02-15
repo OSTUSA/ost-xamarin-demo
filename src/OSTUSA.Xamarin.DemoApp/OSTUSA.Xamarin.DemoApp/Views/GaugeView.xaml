@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:OSTUSA.XamarinDemo.DemoApp.Views;assembly=OSTUSA.XamarinDemo.DemoApp"
+    x:Class="OSTUSA.XamarinDemo.DemoApp.Views.GaugeView">
+    <ContentView.Content>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="100" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <local:ArcView BackgroundColor="Transparent"
+                StrokeColor="#D8D8D8"
+                HorizontalOptions="Start"
+                VerticalOptions="Start"
+                StrokeWidth="5"
+                Degrees="270"
+                HeightRequest="100"
+                WidthRequest="100"
+                Rotation="67.5" />
+            <local:ArcView x:Name="_progressArc"
+                BackgroundColor="Transparent"
+                StrokeColor="#00A9E5"
+                HorizontalOptions="Start"
+                VerticalOptions="Start"
+                StrokeWidth="5"
+                HeightRequest="100"
+                WidthRequest="100"
+                Rotation="67.5" />
+            <Label x:Name="_readingLabel"
+                Style="{StaticResource Label_GaugeValue}" />
+        </Grid>
+    </ContentView.Content>
+</ContentView>
