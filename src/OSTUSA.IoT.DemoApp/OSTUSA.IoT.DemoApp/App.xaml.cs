@@ -1,6 +1,5 @@
 ﻿using Xamarin.Forms;
-using OSTUSA.IoT.DemoApp.Views;
-using OSTUSA.IoT.DemoApp.ViewModels;
+using OSTUSA.IoT.DemoApp.Bootstrapping;
 
 namespace OSTUSA.IoT.DemoApp
 {
@@ -10,10 +9,8 @@ namespace OSTUSA.IoT.DemoApp
         {
             InitializeComponent();
 
-            MainPage = new NavigationPage(new RemotePage()
-            {
-                BindingContext = new RemotePageModel()
-            });
+            var bootstrapper = new Bootstrapper(this);
+            bootstrapper.Run();
         }
 
         protected override void OnStart()

@@ -119,11 +119,26 @@
     <Reference Include="PCLCrypto">
       <HintPath>..\packages\PCLCrypto.2.0.147\lib\xamarinios10\PCLCrypto.dll</HintPath>
     </Reference>
+    <Reference Include="Autofac">
+      <HintPath>..\packages\Autofac.3.5.2\lib\portable-net4+sl5+netcore45+wpa81+wp8+MonoAndroid1+MonoTouch1\Autofac.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\OSTUSA.IoT.DemoApp\OSTUSA.IoT.DemoApp.csproj">
       <Project>{E1DD214C-D079-461C-AF18-0652CFC77C27}</Project>
       <Name>OSTUSA.IoT.DemoApp</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\OSTUSA.IoT.Services\OSTUSA.IoT.Services.csproj">
+      <Project>{DB7AFF62-3E11-4EC4-889D-0F69991ED0CE}</Project>
+      <Name>OSTUSA.IoT.Services</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\OSTUSA.IoT.Services.iOS\OSTUSA.IoT.Services.Implementation.iOS.csproj">
+      <Project>{8996AB97-5BD3-4DE0-83F3-C63C83171497}</Project>
+      <Name>OSTUSA.IoT.Services.Implementation.iOS</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\OSTUSA.IoT.IoC\OSTUSA.IoT.IoC.csproj">
+      <Project>{E5F51731-7A34-4358-A0B4-5F3B7AA076F4}</Project>
+      <Name>OSTUSA.IoT.IoC</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
@@ -144,6 +159,7 @@
   <ItemGroup>
     <Compile Include="Main.cs" />
     <Compile Include="AppDelegate.cs" />
+    <Compile Include="iOSModule.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <Import Project="..\packages\Xamarin.Forms.2.3.3.180\build\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+Xamarin.iOS10+xamarinmac20\Xamarin.Forms.targets" Condition="Exists('..\packages\Xamarin.Forms.2.3.3.180\build\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+Xamarin.iOS10+xamarinmac20\Xamarin.Forms.targets')" />

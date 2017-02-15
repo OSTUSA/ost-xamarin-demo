@@ -29,7 +29,7 @@
   </PropertyGroup>
   <ItemGroup>
     <EmbeddedResource Include="App.xaml" />
-    <EmbeddedResource Include="Views\RemotePage.xaml">
+    <EmbeddedResource Include="Pages\RemotePage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
   </ItemGroup>
@@ -38,10 +38,18 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ViewModels\RemotePageModel.cs" />
-    <Compile Include="Views\RemotePage.xaml.cs">
+    <Compile Include="Navigation\INavigator.cs" />
+    <Compile Include="Navigation\Navigator.cs" />
+    <Compile Include="Navigation\IViewFactory.cs" />
+    <Compile Include="Bootstrapping\Bootstrapper.cs" />
+    <Compile Include="Bootstrapping\Modules\ViewModelModule.cs" />
+    <Compile Include="Bootstrapping\Modules\ViewModule.cs" />
+    <Compile Include="PageModels\RemotePageModel.cs" />
+    <Compile Include="Pages\RemotePage.xaml.cs">
       <DependentUpon>RemotePage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Bootstrapping\Modules\PlatformModule.cs" />
+    <Compile Include="Navigation\ViewFactory.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Xamarin.Forms.Core">
@@ -53,6 +61,9 @@
     <Reference Include="Xamarin.Forms.Xaml">
       <HintPath>..\packages\Xamarin.Forms.2.3.3.180\lib\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+Xamarin.iOS10+xamarinmac20\Xamarin.Forms.Xaml.dll</HintPath>
     </Reference>
+    <Reference Include="Autofac">
+      <HintPath>..\packages\Autofac.3.5.2\lib\portable-net4+sl5+netcore45+wpa81+wp8+MonoAndroid1+MonoTouch1\Autofac.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -60,6 +71,11 @@
   <ItemGroup>
     <Folder Include="Views\" />
     <Folder Include="ViewModels\" />
+    <Folder Include="Navigation\" />
+    <Folder Include="PageModels\" />
+    <Folder Include="Bootstrapping\" />
+    <Folder Include="Bootstrapping\Modules\" />
+    <Folder Include="Pages\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\OSTUSA.IoT.Services\OSTUSA.IoT.Services.csproj">
@@ -69,6 +85,10 @@
     <ProjectReference Include="..\OSTUSA.IoT.Core\OSTUSA.IoT.Core.csproj">
       <Project>{6A2E00E5-A9E7-4F07-9D9C-1E183A4F202F}</Project>
       <Name>OSTUSA.IoT.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\OSTUSA.IoT.IoC\OSTUSA.IoT.IoC.csproj">
+      <Project>{E5F51731-7A34-4358-A0B4-5F3B7AA076F4}</Project>
+      <Name>OSTUSA.IoT.IoC</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />

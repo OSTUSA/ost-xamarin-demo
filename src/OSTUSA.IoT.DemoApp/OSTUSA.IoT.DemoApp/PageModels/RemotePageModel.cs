@@ -1,14 +1,15 @@
 ﻿using System;
 using System.Windows.Input;
-using OSTUSA.IoT.Services.Networking;
 using OSTUSA.IoT.Core.Domain.Messages;
 using Xamarin.Forms;
-using System.Threading.Tasks;
 using System.Collections.ObjectModel;
+using OSTUSA.IoT.Services.Azure;
+using OSTUSA.IoT.Core.ViewModels;
+using System.Threading.Tasks;
 
-namespace OSTUSA.IoT.DemoApp.ViewModels
+namespace OSTUSA.IoT.DemoApp.PageModels
 {
-    public class RemotePageModel
+    public class RemotePageModel : PageModel
     {
         #region bindables 
 
@@ -20,14 +21,19 @@ namespace OSTUSA.IoT.DemoApp.ViewModels
         #region constructor
 
         private int _messageId;
-        private readonly MessageService _messageService;
+        private readonly IMessageService _messageService;
+        private readonly ITwinService _twinService;
 
-        public RemotePageModel()
+        public RemotePageModel(
+            IMessageService messageService,
+            ITwinService twinService
+        )
         {
+            _messageService = messageService;
+            _twinService = twinService;
+
             SendCommand = new Command(Perform_SendCommand);
             Actions = new ObservableCollection<string>();
-
-            _messageService = new MessageService();
         }
 
         #endregion
@@ -51,6 +57,17 @@ namespace OSTUSA.IoT.DemoApp.ViewModels
             {
                 Actions.Add($"Exception: {ex.Message}");
             }
+        }
+
+        #endregion
+
+        #region lifecycle
+
+        public override void OnAppearing(object sender, EventArgs e)
+        {
+            base.OnAppearing(sender, e);
+
+            Task.Factory.StartNew(_twinService.Open);
         }
 
         #endregion

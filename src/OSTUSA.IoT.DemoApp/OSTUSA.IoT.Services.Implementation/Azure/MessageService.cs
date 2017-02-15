@@ -4,9 +4,9 @@ using OSTUSA.IoT.Core.Domain.Messages;
 using System.Net.Http;
 using System.Text;
 
-namespace OSTUSA.IoT.Services.Networking
+namespace OSTUSA.IoT.Services.Azure
 {
-    public class MessageService
+    public class MessageService : IMessageService
     {
         private const string BaseUrl = "https://ostiotdemo.azurewebsites.net/api/";
         private const string MessagesMethodFormat = "things/{0}/messages";

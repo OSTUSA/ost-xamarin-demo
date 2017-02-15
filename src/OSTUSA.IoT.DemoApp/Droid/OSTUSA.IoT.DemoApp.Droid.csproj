@@ -81,17 +81,29 @@
     <Reference Include="Xamarin.Forms.Xaml">
       <HintPath>..\packages\Xamarin.Forms.2.3.3.180\lib\MonoAndroid10\Xamarin.Forms.Xaml.dll</HintPath>
     </Reference>
+    <Reference Include="Autofac">
+      <HintPath>..\packages\Autofac.3.5.2\lib\portable-net4+sl5+netcore45+wpa81+wp8+MonoAndroid1+MonoTouch1\Autofac.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\OSTUSA.IoT.DemoApp\OSTUSA.IoT.DemoApp.csproj">
       <Project>{E1DD214C-D079-461C-AF18-0652CFC77C27}</Project>
       <Name>OSTUSA.IoT.DemoApp</Name>
     </ProjectReference>
+    <ProjectReference Include="..\OSTUSA.IoT.Services.Droid\OSTUSA.IoT.Services.Implementation.Droid.csproj">
+      <Project>{7A2322E6-13F4-47B7-9865-B65D8D695F5B}</Project>
+      <Name>OSTUSA.IoT.Services.Implementation.Droid</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\OSTUSA.IoT.Services\OSTUSA.IoT.Services.csproj">
+      <Project>{DB7AFF62-3E11-4EC4-889D-0F69991ED0CE}</Project>
+      <Name>OSTUSA.IoT.Services</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MainActivity.cs" />
     <Compile Include="Resources\Resource.designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="DroidModule.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
