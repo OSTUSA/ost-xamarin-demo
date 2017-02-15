@@ -7,7 +7,9 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using Android.OS;
+using Xamarin.Forms;
 
+[assembly: ResolutionGroupName("OSTUSA.IoT.DemoApp.Effects")]
 namespace OSTUSA.IoT.DemoApp.Droid
 {
     [Activity(Label = "OSTUSA.IoT.DemoApp.Droid", Icon = "@drawable/icon", Theme = "@style/MyTheme", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]

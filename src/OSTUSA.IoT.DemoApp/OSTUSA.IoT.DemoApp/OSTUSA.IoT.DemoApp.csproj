@@ -29,7 +29,10 @@
   </PropertyGroup>
   <ItemGroup>
     <EmbeddedResource Include="App.xaml" />
-    <EmbeddedResource Include="Pages\RemotePage.xaml">
+    <EmbeddedResource Include="Pages\MainPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\GaugeView.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
   </ItemGroup>
@@ -44,12 +47,19 @@
     <Compile Include="Bootstrapping\Bootstrapper.cs" />
     <Compile Include="Bootstrapping\Modules\ViewModelModule.cs" />
     <Compile Include="Bootstrapping\Modules\ViewModule.cs" />
-    <Compile Include="PageModels\RemotePageModel.cs" />
-    <Compile Include="Pages\RemotePage.xaml.cs">
-      <DependentUpon>RemotePage.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Bootstrapping\Modules\PlatformModule.cs" />
     <Compile Include="Navigation\ViewFactory.cs" />
+    <Compile Include="Pages\MainPage.xaml.cs">
+      <DependentUpon>MainPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PageModels\MainPageModel.cs" />
+    <Compile Include="Views\GaugeView.xaml.cs">
+      <DependentUpon>GaugeView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ArcView.cs" />
+    <Compile Include="Effects\ShadowEffect.cs" />
+    <Compile Include="Effects\CornerEffect.cs" />
+    <Compile Include="Effects\KerningEffect.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Xamarin.Forms.Core">
@@ -76,6 +86,7 @@
     <Folder Include="Bootstrapping\" />
     <Folder Include="Bootstrapping\Modules\" />
     <Folder Include="Pages\" />
+    <Folder Include="Effects\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\OSTUSA.IoT.Services\OSTUSA.IoT.Services.csproj">

@@ -21,7 +21,7 @@ namespace OSTUSA.IoT.DemoApp.Bootstrapping.Modules
 
         private void LoadPageModels(ContainerBuilder builder)
         {
-            builder.RegisterType<RemotePageModel>();
+            builder.RegisterType<MainPageModel>();
         }
     }
 }

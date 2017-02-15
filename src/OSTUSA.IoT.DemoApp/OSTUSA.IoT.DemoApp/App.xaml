@@ -1,9 +1,59 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Application
-    xmlns="http://xamarin.com/schemas/2014/forms"
+<Application xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:fx="clr-namespace:OSTUSA.IoT.DemoApp.Effects;assembly=OSTUSA.IoT.DemoApp"
     x:Class="OSTUSA.IoT.DemoApp.App">
     <Application.Resources>
         <!-- Application resource dictionary -->
+        <ResourceDictionary>
+            <!-- fonts -->
+            <OnPlatform x:Key="Font_SansSerif"
+                x:TypeArguments="x:String">
+                <OnPlatform.iOS>HelveticaNeue</OnPlatform.iOS>
+                <OnPlatform.Android>sans-serif</OnPlatform.Android>
+            </OnPlatform>
+            <OnPlatform x:Key="Font_SansSerif_Light"
+                x:TypeArguments="x:String">
+                <OnPlatform.iOS>HelveticaNeue-Thin</OnPlatform.iOS>
+                <OnPlatform.Android>sans-serif-light</OnPlatform.Android>
+            </OnPlatform>
+            <OnPlatform x:Key="Font_SansSerif_Medium"
+                x:TypeArguments="x:String">
+                <OnPlatform.iOS>HelveticaNeue-Medium</OnPlatform.iOS>
+                <OnPlatform.Android>sans-serif-medium</OnPlatform.Android>
+            </OnPlatform>
+            <OnPlatform x:Key="Font_SansSerif_Bold"
+                x:TypeArguments="x:String">
+                <OnPlatform.iOS>HelveticaNeue-Bold</OnPlatform.iOS>
+                <OnPlatform.Android>sans-serif-bold</OnPlatform.Android>
+            </OnPlatform>
+            <!-- labels -->
+            <Style TargetType="Label"
+                x:Key="Label_GaugeValue">
+                <Setter Property="FontSize"
+                    Value="36" />
+                <Setter Property="FontFamily"
+                    Value="{StaticResource Font_SansSerif_Bold}" />
+                <Setter Property="TextColor"
+                    Value="#454545" />
+                <Setter Property="HorizontalOptions"
+                    Value="Center" />
+                <Setter Property="VerticalOptions"
+                    Value="Center" />
+            </Style>
+            <Style TargetType="Label"
+                x:Key="Label_GaugeDescription">
+                <Setter Property="FontSize"
+                    Value="10" />
+                <Setter Property="FontFamily"
+                    Value="{StaticResource Font_SansSerif_Medium}" />
+                <Setter Property="TextColor"
+                    Value="#40738F" />
+                <Setter Property="fx:KerningEffect.CharacterSpacing"
+                    Value="1.47" />
+                <Setter Property="HorizontalOptions"
+                    Value="Center" />
+            </Style>
+        </ResourceDictionary>
     </Application.Resources>
 </Application>

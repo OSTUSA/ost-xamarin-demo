@@ -1,0 +1,92 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:OSTUSA.IoT.DemoApp.Views;assembly=OSTUSA.IoT.DemoApp"
+    xmlns:fx="clr-namespace:OSTUSA.IoT.DemoApp.Effects;assembly=OSTUSA.IoT.DemoApp"
+    x:Class="OSTUSA.IoT.DemoApp.Pages.MainPage"
+    Title="Taylor's Room"
+    NavigationPage.BarBackgroundColor="#F9F9F9">
+    <ContentPage.Content>
+        <ScrollView>
+            <StackLayout BackgroundColor="#F9F9F9"
+                Spacing="20"
+                Padding="16, 10">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="100" />
+                        <RowDefinition Height="30" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <local:GaugeView Value="{Binding Temperature}"
+                        MinValue="15"
+                        MaxValue="27"
+                        Reading="{Binding Temperature, StringFormat='{0:0}°'}" />
+                    <Label Text="TEMPERATURE"
+                        Style="{StaticResource Label_GaugeDescription}"
+                        Grid.Row="1" />
+                    <local:GaugeView Value="{Binding Humidity}"
+                        MinValue="0"
+                        MaxValue="100"
+                        Reading="{Binding Humidity, StringFormat='{0:0}%'}"
+                        Grid.Column="1" />
+                    <Label Text="HUMIDITY"
+                        Style="{StaticResource Label_GaugeDescription}"
+                        Grid.Row="1"
+                        Grid.Column="1" />
+                    <local:GaugeView Value="{Binding Pressure}"
+                        MinValue="940"
+                        MaxValue="1020"
+                        Reading="{Binding Pressure, StringFormat='{0:0}'}"
+                        Grid.Column="2" />
+                    <Label Text="PRESSURE"
+                        Style="{StaticResource Label_GaugeDescription}"
+                        Grid.Row="1"
+                        Grid.Column="2" />
+                </Grid>
+                <Frame HorizontalOptions="FillAndExpand"
+                    HeightRequest="200"
+                    BackgroundColor="White">
+                    <Frame.Effects>
+                        <fx:ShadowEffect ShadowBlur="4"
+                            ShadowColor="#80000000"
+                            ShadowYOffset="1" />
+                        <fx:CornerEffect Radius="4" />
+                    </Frame.Effects>
+                    <StackLayout>
+                        <Label Text="More info about the temperature..." />
+                    </StackLayout>
+                </Frame>
+                <Frame HorizontalOptions="FillAndExpand"
+                    HeightRequest="200"
+                    BackgroundColor="White">
+                    <Frame.Effects>
+                        <fx:ShadowEffect ShadowBlur="4"
+                            ShadowColor="#80000000"
+                            ShadowYOffset="1" />
+                        <fx:CornerEffect Radius="4" />
+                    </Frame.Effects>
+                    <StackLayout>
+                        <Label Text="More info about the humidity..." />
+                    </StackLayout>
+                </Frame>
+                <Frame HorizontalOptions="FillAndExpand"
+                    HeightRequest="200"
+                    BackgroundColor="White">
+                    <Frame.Effects>
+                        <fx:ShadowEffect ShadowBlur="4"
+                            ShadowColor="#80000000"
+                            ShadowYOffset="1" />
+                        <fx:CornerEffect Radius="4" />
+                    </Frame.Effects>
+                    <StackLayout>
+                        <Label Text="More info about the pressure..." />
+                    </StackLayout>
+                </Frame>
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

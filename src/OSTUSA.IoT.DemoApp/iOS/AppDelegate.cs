@@ -4,7 +4,9 @@ using System.Linq;
 
 using Foundation;
 using UIKit;
+using Xamarin.Forms;
 
+[assembly: ResolutionGroupName("OSTUSA.IoT.DemoApp.Effects")]
 namespace OSTUSA.IoT.DemoApp.iOS
 {
     [Register("AppDelegate")]

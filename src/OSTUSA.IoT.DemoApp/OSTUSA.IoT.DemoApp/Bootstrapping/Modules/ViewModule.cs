@@ -36,7 +36,7 @@ namespace OSTUSA.IoT.DemoApp.Bootstrapping.Modules
         
         private void LoadPages(ContainerBuilder builder)
         {
-            builder.RegisterType<RemotePage>();
+            builder.RegisterType<MainPage>();
         }
     }
 }

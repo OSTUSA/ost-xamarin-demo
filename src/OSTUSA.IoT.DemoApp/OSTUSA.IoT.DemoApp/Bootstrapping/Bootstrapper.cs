@@ -51,13 +51,13 @@ namespace OSTUSA.IoT.DemoApp.Bootstrapping
         {
             var pageFactory = container.Resolve<IViewFactory<Page>>();
 
-            pageFactory.Register<RemotePageModel, RemotePage>();
+            pageFactory.Register<MainPageModel, MainPage>();
         }
 
         private void StartApplication(IContainer container)
         {
             var pageFactory = container.Resolve<IViewFactory<Page>>();
-            var remotePage = pageFactory.Resolve<RemotePageModel>(x => x.OnAppearing(this, EventArgs.Empty));
+            var remotePage = pageFactory.Resolve<MainPageModel>(x => x.OnAppearing(this, EventArgs.Empty));
 
             _app.MainPage = new NavigationPage(remotePage);
         }
