@@ -35,6 +35,7 @@
     <Compile Include="Networking\Mqtt\IMqttClientService.cs" />
     <Compile Include="Networking\Mqtt\IMqttNetworkChannel.cs" />
     <Compile Include="Networking\Sockets\IWebSocketConnection.cs" />
+    <Compile Include="Azure\IThingsService.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Newtonsoft.Json">

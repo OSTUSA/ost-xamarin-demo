@@ -36,106 +36,37 @@ namespace OSTUSA.XamarinDemo.DemoApp.iOS.Renderers
             Hidden = !Element.IsVisible;
         }
 
-        public override void Draw(CoreGraphics.CGRect rect)
+        protected RectangleF AdjustForThickness(CGRect rect)
         {
-            // http://stackoverflow.com/questions/11783114/draw-outer-half-circle-with-gradient-using-core-graphics-in-ios
-
-            var centerX = rect.X + (rect.Width / 2);
-            var centerY = rect.Y + (rect.Height / 2);
-            var radius = rect.Width / 2;
-            var startAngle = (float)(Element.Rotation / 180d * Math.PI);
-            var endAngle = startAngle + (float)(Element.Degrees / 180d * Math.PI);
-
-            var sr = Element.StrokeColor.R;
-            var sg = Element.StrokeColor.G;
-            var sb = Element.StrokeColor.B;
-
-            var tailColor = Element.StrokeTailColor == Color.Default ? Element.StrokeColor : Element.StrokeTailColor;
-            var er = tailColor.R;
-            var eg = tailColor.G;
-            var eb = tailColor.B;
-
-            Func<float, UIColor> color = x =>
-            {
-                var r = (nfloat)(x * sr + (1 - x) * er);
-                var g = (nfloat)(x * sg + (1 - x) * eg);
-                var b = (nfloat)(x * sb + (1 - x) * eb);
-                    
-                return new UIColor(r, g, b, 1f);
-            };
-
-            var context = UIGraphics.GetCurrentContext();
-            DrawGradientInContext(
-                context,
-                startAngle,
-                endAngle,
-                (float)(radius - Element.StrokeWidth),
-                (float)radius,
-                color,
-                32,
-                new CGPoint(centerX, centerY)
-            );
+            var x = rect.X + Element.Padding.Left;
+            var y = rect.Y + Element.Padding.Top;
+            var width = rect.Width - Element.Padding.HorizontalThickness;
+            var height = rect.Height - Element.Padding.VerticalThickness;
+            return new RectangleF((float)x, (float)y, (float)width, (float)height);
         }
 
-        private CGPoint GetPointForTrapezoidWithAngle(float angle, float radius, CGPoint center)
+        public override void Draw(CGRect rect)
         {
-            return new CGPoint(center.X + radius * Math.Cos(angle), center.Y + radius * Math.Sin(angle));
-        }
+            var currentContext = UIGraphics.GetCurrentContext();
 
-        private void DrawGradientInContext(
-            CGContext ctx,
-            float startAngle,
-            float endAngle,
-            float innerRadius,
-            float outerRadius,
-            Func<float, UIColor> colorBlock,
-            int subdivCount,
-            CGPoint center,
-            float scale = 1f
-        )
-        {
-            if (startAngle == endAngle)
-                return;
-            
-            float angleDelta = (endAngle - startAngle) / subdivCount;
-            float fractionDelta = 1.0f / subdivCount;
+            var properRect = AdjustForThickness(rect);
 
-            CGPoint p0, p1, p2, p3;
-            float currentAngle = startAngle;
-            p0 = GetPointForTrapezoidWithAngle(currentAngle, innerRadius, center);
-            p3 = GetPointForTrapezoidWithAngle(currentAngle, outerRadius, center);
+            var centerX = properRect.X + (properRect.Width / 2);
+            var centerY = properRect.Y + (properRect.Height / 2);
+            var radius = properRect.Width / 2;
 
-            ctx.SetLineWidth(1);
+            var radians = (float)(Math.PI * 2 * (Element.Degrees / 360));
+            currentContext.AddArc(centerX, centerY, radius, 0, radians, false);
 
-            for (var i = 0; i < subdivCount; i++)
-            {
-                var fraction = (float)i / subdivCount;
-                currentAngle = startAngle + fraction * (endAngle - startAngle);
-                using (var trapezoid = new CGPath())
-                {
-                    p1 = GetPointForTrapezoidWithAngle(currentAngle + angleDelta, innerRadius, center);
-                    p2 = GetPointForTrapezoidWithAngle(currentAngle + angleDelta, outerRadius, center);
+            System.Diagnostics.Debug.WriteLine($"Drawing arc from 0 to {radians} for {Element.Degrees} degrees");
 
-                    trapezoid.MoveToPoint(p0);
-                    trapezoid.AddLineToPoint(p1);
-                    trapezoid.AddLineToPoint(p2);
-                    trapezoid.AddLineToPoint(p3);
-                    trapezoid.CloseSubpath();
+            currentContext.SetStrokeColor(Element.StrokeColor.ToCGColor());
+            currentContext.SetLineCap(CGLineCap.Round);
+            currentContext.SetLineWidth(Element.StrokeWidth);
 
-                    ctx.AddPath(trapezoid);
+            currentContext.ReplacePathWithStrokedPath();
 
-                    var color = colorBlock(fraction).CGColor;
-                    ctx.SetFillColor(color);
-                    ctx.SetStrokeColor(color);
-                    ctx.SetMiterLimit(0);
-                    ctx.SetLineCap(CGLineCap.Square);
-
-                    ctx.DrawPath(CGPathDrawingMode.FillStroke);
-                }
-
-                p0 = p1;
-                p3 = p2;
-            }
+            currentContext.DrawPath(CGPathDrawingMode.Stroke);
         }
     }
 }

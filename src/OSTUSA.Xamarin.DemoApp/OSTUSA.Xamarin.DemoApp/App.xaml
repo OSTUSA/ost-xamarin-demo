@@ -18,7 +18,7 @@
                 <OnPlatform.Android>sans-serif-light</OnPlatform.Android>
             </OnPlatform>
             <OnPlatform x:Key="Font_SansSerif_Medium"
-                x:TypeArguments="x:String">                       
+                x:TypeArguments="x:String">
                 <OnPlatform.iOS>HelveticaNeue-Medium</OnPlatform.iOS>
                 <OnPlatform.Android>sans-serif-medium</OnPlatform.Android>
             </OnPlatform>
@@ -29,7 +29,7 @@
             </OnPlatform>
             <!-- labels -->
             <Style TargetType="Label"
-                x:Key="Label_GaugeValue">
+                x:Key="Label_Gauge_Value">
                 <Setter Property="FontSize"
                     Value="36" />
                 <Setter Property="FontFamily"
@@ -37,12 +37,14 @@
                 <Setter Property="TextColor"
                     Value="#454545" />
                 <Setter Property="HorizontalOptions"
-                    Value="Center" />
+                    Value="FillAndExpand" />
                 <Setter Property="VerticalOptions"
+                    Value="Center" />
+                <Setter Property="HorizontalTextAlignment"
                     Value="Center" />
             </Style>
             <Style TargetType="Label"
-                x:Key="Label_GaugeDescription">
+                x:Key="Label_Gauge_Description">
                 <Setter Property="FontSize"
                     Value="10" />
                 <Setter Property="FontFamily"
@@ -53,6 +55,29 @@
                     Value="1.47" />
                 <Setter Property="HorizontalOptions"
                     Value="Center" />
+            </Style>
+            <Style TargetType="Label"
+                x:Key="Label_MetricCard_Headline">
+                <Setter Property="FontSize"
+                    Value="32" />
+                <Setter Property="FontFamily"
+                    Value="{StaticResource Font_SansSerif_Light}" />
+                <Setter Property="TextColor"
+                    Value="#454545" />
+            </Style>
+            <Style TargetType="Label"
+                x:Key="Label_MetricCard_DataLabel">
+                <Setter Property="FontSize"
+                    Value="16" />
+                <Setter Property="FontFamily"
+                    Value="{StaticResource Font_SansSerif_Medium}" />
+            </Style>
+            <Style TargetType="Label"
+                x:Key="Label_MetricCard_DataValue">
+                <Setter Property="FontSize"
+                    Value="16" />
+                <Setter Property="FontFamily"
+                    Value="{StaticResource Font_SansSerif}" />
             </Style>
         </ResourceDictionary>
     </Application.Resources>

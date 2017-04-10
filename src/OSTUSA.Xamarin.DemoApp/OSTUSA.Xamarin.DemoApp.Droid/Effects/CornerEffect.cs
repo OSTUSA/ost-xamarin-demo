@@ -35,7 +35,7 @@ namespace OSTUSA.XamarinDemo.DemoApp.Droid.Effects
                     if (gradient == null)
                     {
                         var bgColor = view.Background as ColorDrawable;
-                        if (bgColor == null) //todo: improve exception handling
+                        if (bgColor == null)
                             return;
                         
                         gradient = new GradientDrawable();

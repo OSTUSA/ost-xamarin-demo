@@ -19,6 +19,9 @@ namespace OSTUSA.XamarinDemo.IoC.Modules
 
             builder.RegisterType<TwinService>()
                    .As<ITwinService>();
+
+            builder.RegisterType<ThingsService>()
+                   .As<IThingsService>();
         }
     }
 }

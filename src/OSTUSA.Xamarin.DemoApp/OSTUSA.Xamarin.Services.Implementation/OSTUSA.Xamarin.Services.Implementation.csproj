@@ -56,6 +56,8 @@
     <Compile Include="Networking\Mqtt\Messages\MqttMsgUnsuback.cs" />
     <Compile Include="Networking\Mqtt\Messages\MqttMsgUnsubscribe.cs" />
     <Compile Include="Azure\TwinService.cs" />
+    <Compile Include="Azure\ThingsService.cs" />
+    <Compile Include="Azure\AzureClient.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\OSTUSA.Xamarin.Core\OSTUSA.Xamarin.Core.csproj">

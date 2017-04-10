@@ -56,11 +56,13 @@
     <Compile Include="Networking\Mqtt\Utility\Trace.cs" />
     <Compile Include="Networking\Sockets\Events\WebSocketDataEventArgs.cs" />
     <Compile Include="Networking\Sockets\Events\WebSocketExceptionEventArgs.cs" />
+    <Compile Include="Domain\Things\Twin.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Domain\" />
     <Folder Include="Domain\Messages\" />
     <Folder Include="ViewModels\" />
+    <Folder Include="Domain\Things\" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Newtonsoft.Json">

@@ -7,7 +7,7 @@ using Android.Util;
 using Android.Graphics;
 using OSTUSA.XamarinDemo.DemoApp.Views;
 
-[assembly: ExportRenderer(typeof(ArcView), typeof(OSTUSA.XamarinDemo.DemoApp.Renderers.ArcViewRenderer))]
+[assembly: ExportRenderer(typeof(ArcView), typeof(OSTUSA.XamarinDemo.DemoApp.Droid.Renderers.ArcViewRenderer))]
 namespace OSTUSA.XamarinDemo.DemoApp.Droid.Renderers
 {
     public class ArcViewRenderer : ViewRenderer<ArcView, Arc>
@@ -65,7 +65,7 @@ namespace OSTUSA.XamarinDemo.DemoApp.Droid.Renderers
             var strokePaint = new Paint(PaintFlags.AntiAlias);
             strokePaint.SetStyle(Paint.Style.Stroke);
             strokePaint.StrokeWidth = Resize(_arcView.StrokeWidth);
-            strokePaint.StrokeCap = Paint.Cap.Square;
+            strokePaint.StrokeCap = Paint.Cap.Round;
             strokePaint.Color = _arcView.StrokeColor.ToAndroid();
 
             if (_arcView.StrokeTailColor != Xamarin.Forms.Color.Default)

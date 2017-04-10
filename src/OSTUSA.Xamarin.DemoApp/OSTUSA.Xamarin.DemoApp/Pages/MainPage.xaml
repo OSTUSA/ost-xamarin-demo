@@ -3,11 +3,16 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:OSTUSA.XamarinDemo.DemoApp.Views;assembly=OSTUSA.XamarinDemo.DemoApp"
     xmlns:fx="clr-namespace:OSTUSA.XamarinDemo.DemoApp.Effects;assembly=OSTUSA.XamarinDemo.DemoApp"
+    xmlns:behaviors="clr-namespace:OSTUSA.XamarinDemo.DemoApp.Behaviors;assembly=OSTUSA.XamarinDemo.DemoApp"
     x:Class="OSTUSA.XamarinDemo.DemoApp.Pages.MainPage"
     Title="Taylor's Room"
     NavigationPage.BarBackgroundColor="#F9F9F9">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Icon="Refresh.png"
+            Command="{Binding Refresh}" />
+    </ContentPage.ToolbarItems>
     <ContentPage.Content>
-        <ScrollView>
+        <ScrollView x:Name="_scrollView">
             <StackLayout BackgroundColor="#F9F9F9"
                 Spacing="20"
                 Padding="16, 10">
@@ -21,71 +26,62 @@
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
-                    <local:GaugeView Value="{Binding Temperature}"
-                        MinValue="15"
-                        MaxValue="27"
-                        Reading="{Binding Temperature, StringFormat='{0:0}°'}" />
+                    <local:GaugeView Value="{Binding TemperatureValue}"
+                        MinValue="{Binding TemperatureMin}"
+                        MaxValue="{Binding TemperatureMax}"
+                        Reading="{Binding TemperatureValue, StringFormat='{0:0}°'}">
+                        <local:GaugeView.Behaviors>
+                            <behaviors:ScrollToBehavior ScrollView="{x:Reference _scrollView}"
+                                Target="{x:Reference _temperatureCard}" />
+                        </local:GaugeView.Behaviors>
+                    </local:GaugeView>
                     <Label Text="TEMPERATURE"
-                        Style="{StaticResource Label_GaugeDescription}"
+                        Style="{StaticResource Label_Gauge_Description}"
                         Grid.Row="1" />
-                    <local:GaugeView Value="{Binding Humidity}"
-                        MinValue="0"
-                        MaxValue="100"
-                        Reading="{Binding Humidity, StringFormat='{0:0}%'}"
-                        Grid.Column="1" />
+                    <local:GaugeView Value="{Binding HumidityValue}"
+                        MinValue="{Binding HumidityMin}"
+                        MaxValue="{Binding HumidityMax}"
+                        Reading="{Binding HumidityValue, StringFormat='{0:0}%'}"
+                        Grid.Column="1">
+                        <local:GaugeView.Behaviors>
+                            <behaviors:ScrollToBehavior ScrollView="{x:Reference _scrollView}"
+                                Target="{x:Reference _humidityCard}" />
+                        </local:GaugeView.Behaviors>
+                    </local:GaugeView>
                     <Label Text="HUMIDITY"
-                        Style="{StaticResource Label_GaugeDescription}"
+                        Style="{StaticResource Label_Gauge_Description}"
                         Grid.Row="1"
                         Grid.Column="1" />
-                    <local:GaugeView Value="{Binding Pressure}"
-                        MinValue="940"
-                        MaxValue="1020"
-                        Reading="{Binding Pressure, StringFormat='{0:0}'}"
-                        Grid.Column="2" />
+                    <local:GaugeView Value="{Binding PressureValue}"
+                        MinValue="{Binding PressureMin}"
+                        MaxValue="{Binding PressureMax}"
+                        Reading="{Binding PressureValue, StringFormat='{0:0}'}"
+                        Grid.Column="2">
+                        <local:GaugeView.Behaviors>
+                            <behaviors:ScrollToBehavior ScrollView="{x:Reference _scrollView}"
+                                Target="{x:Reference _pressureCard}" />
+                        </local:GaugeView.Behaviors>
+                    </local:GaugeView>
                     <Label Text="PRESSURE"
-                        Style="{StaticResource Label_GaugeDescription}"
+                        Style="{StaticResource Label_Gauge_Description}"
                         Grid.Row="1"
                         Grid.Column="2" />
                 </Grid>
-                <Frame HorizontalOptions="FillAndExpand"
-                    HeightRequest="200"
-                    BackgroundColor="White">
-                    <Frame.Effects>
-                        <fx:ShadowEffect ShadowBlur="4"
-                            ShadowColor="#80000000"
-                            ShadowYOffset="1" />
-                        <fx:CornerEffect Radius="4" />
-                    </Frame.Effects>
-                    <StackLayout>
-                        <Label Text="More info about the temperature..." />
-                    </StackLayout>
-                </Frame>
-                <Frame HorizontalOptions="FillAndExpand"
-                    HeightRequest="200"
-                    BackgroundColor="White">
-                    <Frame.Effects>
-                        <fx:ShadowEffect ShadowBlur="4"
-                            ShadowColor="#80000000"
-                            ShadowYOffset="1" />
-                        <fx:CornerEffect Radius="4" />
-                    </Frame.Effects>
-                    <StackLayout>
-                        <Label Text="More info about the humidity..." />
-                    </StackLayout>
-                </Frame>
-                <Frame HorizontalOptions="FillAndExpand"
-                    HeightRequest="200"
-                    BackgroundColor="White">
-                    <Frame.Effects>
-                        <fx:ShadowEffect ShadowBlur="4"
-                            ShadowColor="#80000000"
-                            ShadowYOffset="1" />
-                        <fx:CornerEffect Radius="4" />
-                    </Frame.Effects>
-                    <StackLayout>
-                        <Label Text="More info about the pressure..." />
-                    </StackLayout>
-                </Frame>
+                <local:MetricCard x:Name="_temperatureCard"
+                    Headline="Temperature"
+                    Value="{Binding TemperatureValue}"
+                    MinValue="{Binding TemperatureMin}"
+                    MaxValue="{Binding TemperatureMax}" />
+                <local:MetricCard x:Name="_humidityCard"
+                    Headline="Humidity"
+                    Value="{Binding HumidityValue}"
+                    MinValue="{Binding HumidityMin}"
+                    MaxValue="{Binding HumidityMax}" />
+                <local:MetricCard x:Name="_pressureCard"
+                    Headline="Pressure"
+                    Value="{Binding PressureValue}"
+                    MinValue="{Binding PressureMin}"
+                    MaxValue="{Binding PressureMax}" />
             </StackLayout>
         </ScrollView>
     </ContentPage.Content>

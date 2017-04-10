@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:fx="clr-namespace:OSTUSA.XamarinDemo.DemoApp.Effects;assembly=OSTUSA.XamarinDemo.DemoApp"
+    x:Class="OSTUSA.XamarinDemo.DemoApp.Views.MetricCard"
+    HorizontalOptions="FillAndExpand"
+    HeightRequest="200">
+    <ContentView.Content>
+        <Frame BackgroundColor="White"
+            HorizontalOptions="FillAndExpand"
+            VerticalOptions="FillAndExpand">
+            <Frame.Effects>
+                <fx:ShadowEffect ShadowBlur="4"
+                    ShadowColor="#80000000"
+                    ShadowYOffset="1" />
+                <fx:CornerEffect Radius="4" />
+            </Frame.Effects>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <StackLayout>
+                    <Label x:Name="_headlineLabel"
+                        Style="{StaticResource Label_MetricCard_Headline}" />
+                    <Grid ColumnSpacing="20"
+                        Margin="0, 20, 0, 0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Label Text="Value:"
+                            Style="{StaticResource Label_MetricCard_DataLabel}"
+                            Grid.Row="0" />
+                        <Label Text="Min:"
+                            Style="{StaticResource Label_MetricCard_DataLabel}"
+                            Grid.Row="1" />
+                        <Label Text="Max:"
+                            Style="{StaticResource Label_MetricCard_DataLabel}"
+                            Grid.Row="2" />
+                        <Label x:Name="_valueLabel"
+                            Style="{StaticResource Label_MetricCard_DataValue}"
+                            Grid.Row="0"
+                            Grid.Column="1" />
+                        <Label x:Name="_minLabel"
+                            Style="{StaticResource Label_MetricCard_DataValue}"
+                            Text="0"
+                            Grid.Row="1"
+                            Grid.Column="1" />
+                        <Entry x:Name="_minEntry"
+                            Keyboard="Numeric"
+                            IsVisible="false"
+                            Grid.Row="1"
+                            Grid.Column="1" />
+                        <Label x:Name="_maxLabel"
+                            Style="{StaticResource Label_MetricCard_DataValue}"
+                            Grid.Row="2"
+                            Grid.Column="1" />
+                        <Entry x:Name="_maxEntry"
+                            Keyboard="Numeric"
+                            IsVisible="false"
+                            Grid.Row="2"
+                            Grid.Column="1" />
+                    </Grid>
+                </StackLayout>
+                <Button x:Name="_toggleButton"
+                    Image="Edit.png"
+                    VerticalOptions="Start"
+                    HorizontalOptions="End"
+                    Clicked="Handle_Clicked" />
+            </Grid>
+        </Frame>
+    </ContentView.Content>
+</ContentView>

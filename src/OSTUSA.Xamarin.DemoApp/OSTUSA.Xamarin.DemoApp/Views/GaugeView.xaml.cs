@@ -49,6 +49,7 @@ namespace OSTUSA.XamarinDemo.DemoApp.Views
                 return;
 
             var percent = (gaugeView.Value - gaugeView.MinValue) / (gaugeView.MaxValue - gaugeView.MinValue);
+            percent = Math.Max(0, Math.Min(1, percent)); // keep the value between 0 and 100%
             System.Diagnostics.Debug.WriteLine($"{gaugeView.Value} in [{gaugeView.MinValue}, {gaugeView.MaxValue}] is {percent}");
             gaugeView._progressArc.Degrees = (float)(percent * 270d);
         }
